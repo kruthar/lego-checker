@@ -16,6 +16,9 @@
 
         <kotlin.version>1.5.31</kotlin.version>
         <jupiter.version>5.6.0</jupiter.version>
+        <clikt.version>3.4.0</clikt.version>
+
+        <main.class>io.kruthar.lego.checker.cli.LegoCheckerCliKt</main.class>
     </properties>
 
     <dependencies>
@@ -23,6 +26,11 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
             <version>${kotlin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ajalt.clikt</groupId>
+            <artifactId>clikt-jvm</artifactId>
+            <version>${clikt.version}</version>
         </dependency>
         <!-- Test Dependencies -->
         <dependency>
@@ -67,6 +75,33 @@
                         <goals>
                             <goal>test-compile</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appassembler-maven-plugin</artifactId>
+                <version>1.10</version>
+                <executions>
+                    <execution>
+                        <id>assemble</id>
+                        <goals>
+                            <goal>assemble</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <showConsoleWindow>true</showConsoleWindow>
+                            <platforms>
+                                <platform>unix</platform>
+                            </platforms>
+                            <programs>
+                                <program>
+                                    <mainClass>${main.class}</mainClass>
+                                    <id>lego-cli</id>
+                                </program>
+                            </programs>
+                            <assembleDirectory>target/lego-cli</assembleDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
