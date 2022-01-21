@@ -1,4 +1,4 @@
-package io.kruthar.lego.checker.cli.check
+package io.kruth.lego.checker.cli.check
 
 import com.github.ajalt.clikt.core.CliktCommand
 

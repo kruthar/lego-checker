@@ -18,6 +18,10 @@
     <jupiter.version>5.6.0</jupiter.version>
     <clikt.version>3.4.0</clikt.version>
     <ktlint.version>0.43.2</ktlint.version>
+    <jsoup.version>1.14.3</jsoup.version>
+    <result4k.version>2.0.0</result4k.version>
+    <mockito.version>4.2.0</mockito.version>
+    <mockito-kotlin.version>2.2.0</mockito-kotlin.version>
 
     <main.class>io.kruthar.lego.checker.cli.LegoCheckerCliKt</main.class>
   </properties>
@@ -32,6 +36,16 @@
       <groupId>com.github.ajalt.clikt</groupId>
       <artifactId>clikt-jvm</artifactId>
       <version>${clikt.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>${jsoup.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.natpryce</groupId>
+      <artifactId>result4k</artifactId>
+      <version>${result4k.version}</version>
     </dependency>
     <!-- Test Dependencies -->
     <dependency>
@@ -50,6 +64,12 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.mockk</groupId>
+      <artifactId>mockk</artifactId>
+      <version>1.12.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
