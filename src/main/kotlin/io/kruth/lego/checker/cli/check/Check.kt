@@ -6,7 +6,7 @@ import com.natpryce.map
 import io.kruth.lego.html.LegoHtmlPage
 import io.kruth.lego.html.WebConnection
 
-class Check(val conn: WebConnection, val baseUrl: String) : CliktCommand() {
+class Check(val conn: WebConnection, private val baseUrl: String) : CliktCommand() {
   val setName by option("-s", "--set-name", help = "Lego.com set name to check")
 
   val legoUrl by lazy {
@@ -14,8 +14,9 @@ class Check(val conn: WebConnection, val baseUrl: String) : CliktCommand() {
   }
 
   override fun run() {
-    LegoHtmlPage(conn, legoUrl).getState().map {
-      echo("Lego set found at $legoUrl: [Available]")
+    echo("Checking Url: $legoUrl")
+    LegoHtmlPage(conn, legoUrl).getState().map { availability ->
+      echo("Lego set found at $legoUrl: [${availability.value}]")
     }
   }
 }

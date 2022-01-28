@@ -10,11 +10,15 @@ import org.jsoup.nodes.Document
 enum class SetAvailability(val value: String) {
   AVAILABLE("Available now"),
   OUT_OF_STOCK("Temporarily out of stock"),
+  BACKORDER("Backorders accepted"),
   UNKNOWN("Availability Unknown");
 
   companion object {
     private val valueMap = values().associateBy(SetAvailability::value)
-    fun of(value: String) = valueMap.getOrDefault(value, UNKNOWN)
+    fun of(value: String) = valueMap.getOrDefault(
+      value,
+      valueMap.filter { entry -> value.contains(entry.key) }.toList().map { it.second }.firstOrNull() ?: UNKNOWN
+    )
   }
 }
 
@@ -29,7 +33,7 @@ class LegoHtmlPage(val conn: WebConnection, address: String) {
       val states = availabilityWrapperSpans(doc)
         .map { span -> span.text() }
         .filter { text ->
-          SetAvailability.values().map { it.value }.contains(text)
+          SetAvailability.values().map { it.value }.contains(text.substringBefore(','))
         }
 
       when {

@@ -2,7 +2,7 @@ package io.kruth.lego.checker.cli.check
 
 import com.github.ajalt.clikt.core.context
 import com.natpryce.Success
-import io.kotest.matchers.shouldBe
+import io.kotest.matchers.collections.shouldContain
 import io.kruth.lego.html.WebConnection
 import io.kruth.lego.util.EchoCaptureConsole
 import io.kruth.lego.util.TestUtil.getDocument
@@ -17,14 +17,14 @@ class CheckTest {
   @Test
   fun `should check the correct address with -s flag`() {
     val (cli, console) = getTestConsole()
-    val page = "valentine-lovebirds-40522"
+    val page = "lego-titanic-10294"
 
     every {
-      conn.getHtml("$baseUrl/$page.html")
+      conn.getHtml("$baseUrl/$page")
     } returns Success(getDocument("pages/$page.html"))
 
     cli.parse(listOf("-s", page))
-    console.messages[0] shouldBe "Lego set found at $baseUrl/$page: [Available]"
+    console.messages shouldContain "Lego set found at $baseUrl/$page: [Temporarily out of stock]"
   }
 
   private fun getTestConsole(): Pair<Check, EchoCaptureConsole> {

@@ -28,6 +28,11 @@ class LegoHtmlPageTest {
     LegoHtmlPage(conn, "outofstock").getState() shouldBe Success(SetAvailability.OUT_OF_STOCK)
 
     every {
+      conn.getHtml("backorder")
+    } returns Success(getDocument("pages/backorders-accepted.html"))
+    LegoHtmlPage(conn, "backorder").getState() shouldBe Success(SetAvailability.BACKORDER)
+
+    every {
       conn.getHtml("unknown")
     } returns Success(getDocument("pages/unknown-state-00000.html"))
     LegoHtmlPage(conn, "unknown").getState() shouldBe Success(SetAvailability.UNKNOWN)
